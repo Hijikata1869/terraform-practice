@@ -1,19 +1,17 @@
-data "aws_ami" "recent_amazon_linux_2" {
-  most_recent = true
-  owners      = ["amazon"]
+resource "aws_security_group" "example_ec2" {
+  name = "example-ec2"
 
-  filter {
-    name = "name"
-    values = ["amzn2-ami-hvm-2.0.????????-x86_64-gp2"]
+  ingress {
+    from_port = 80
+    to_port = 80
+    protcol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  filter {
-    name = "state"
-    values = ["available"]
+  egress {
+    from_port = 0
+    to_port = 0
+    protcol = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-resource "aws_instance" "example" {
-  ami = data.aws_ami.recent_amazon_linux_2.image_id
-  instance_type = "t3.micro"
 }
