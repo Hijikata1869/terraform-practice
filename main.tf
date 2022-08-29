@@ -1035,3 +1035,10 @@ resource "aws_cloudwatch_log_subscription_filter" "example" {
   filter_pattern = "[]"
   role_arn = module.cloudwatch_logs_role.iam_role_arn
 }
+
+variable "env" {}
+
+resource "aws_instance" "example" {
+  ami = "ami-0c3fd0f5d33134a76"
+  instance_type = var.env == "prod" ? "m5.large": "t3.micro"
+}
