@@ -7,8 +7,6 @@ resource "aws_instance" "tfer--i-09e0f9e36c04e6115_" {
     capacity_reservation_preference = "open"
   }
 
-  cpu_core_count       = "1"
-  cpu_threads_per_core = "1"
 
   credit_specification {
     cpu_credits = "standard"
@@ -57,7 +55,6 @@ resource "aws_instance" "tfer--i-09e0f9e36c04e6115_" {
     volume_type           = "gp2"
   }
 
-  security_groups   = ["terraform-practice-sg"]
   source_dest_check = "true"
   subnet_id         = "subnet-063057e8cf580c211"
 
@@ -70,5 +67,5 @@ resource "aws_instance" "tfer--i-09e0f9e36c04e6115_" {
   }
 
   tenancy                = "default"
-  vpc_security_group_ids = [data.terraform_remote_state.local.outputs.aws_security_group_tfer--terraform-practice-sg_sg-07352efc0ddfdbaac_id]
+  vpc_security_group_ids = [aws_security_group.tfer--terraform-practice-sg_sg-07352efc0ddfdbaac.id]
 }
